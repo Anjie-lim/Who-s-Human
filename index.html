@@ -58,6 +58,52 @@
             font-weight: 600;
         }
 
+        /* Home Screen Styles */
+        .welcome-screen h2 {
+            font-size: 2rem;
+            color: var(--text-main);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: var(--primary-accent);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .instructions-box {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--primary-accent);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 35px;
+            text-align: left;
+        }
+
+        .instructions-box h3 {
+            margin-top: 0;
+            color: var(--text-main);
+            font-size: 1.2rem;
+        }
+
+        .instructions-box ul {
+            padding-left: 20px;
+            margin: 15px 0 0 0;
+        }
+
+        .instructions-box li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .center-content {
+            text-align: center;
+        }
+
         .prompt-card {
             background-color: var(--card-bg);
             border-left: 4px solid var(--primary-accent);
@@ -156,7 +202,7 @@
         }
 
         .revealed .audio-btn {
-            pointer-events: auto; /* Still let them hear after voting */
+            pointer-events: auto; 
         }
 
         .revealed .choice-card.human-win {
@@ -240,7 +286,24 @@
 </head>
 <body>
 
-<div class="game-container" id="gameScreen">
+<div class="game-container center-content welcome-screen" id="startScreen">
+    <h2>Turing's Choice</h2>
+    <div class="subtitle">Protocol: Spot the Human Companion</div>
+    
+    <div class="instructions-box">
+        <h3>📋 Test Instructions</h3>
+        <ul>
+            <li>Review 10 real-world emotional dilemmas.</li>
+            <li>Analyze two responses: <strong>One AI, one Human</strong>.</li>
+            <li>Listen to the natural flow using the 🔊 <strong>Listen</strong> button.</li>
+            <li>Select the <strong>Human</strong> to earn points. Look for natural emotional nuances!</li>
+        </ul>
+    </div>
+    
+    <button class="main-btn" onclick="startGame()">Begin Evaluation</button>
+</div>
+
+<div class="game-container hidden" id="gameScreen">
     <header>
         <h1 id="topicTitle">Turing's Choice</h1>
         <div class="stats">
@@ -300,7 +363,6 @@
 </div>
 
 <script>
-    // Full dataset array consisting of your 10 distinct scenario sets
     const scenarios = [
       {
         "id": 1,
@@ -318,7 +380,7 @@
         "responseA": "Step away from the screen right now. Seriously, close the laptop. If you sit there staring at that blinking cursor for another hour, you're just going to torture yourself. Go make a tea, take a quick walk around the block, or watch something completely brainless. The ideas usually show up once you stop aggressively hunting them down. Want to just brainstorm out loud to me instead of typing?",
         "responseB": "Writer's block can be highly frustrating, but it is a normal part of the creative process. Please do not be discouraged or question your talent. To help stimulate your inspiration, we could try a few brainstorming exercises. For example, we could use the freewriting technique, map out a mind network, or change your physical writing environment. Would you like me to generate a list of five potential writing prompts to get you started?",
         "correctAnswer": "A",
-        "explanation": "Response B offers mechanical textbook exercises ('freewriting technique') instead of casual, human-to-human advice like taking a break and watching junk TV."
+        "explanation": "Response B offers mechanical textbook exercises ('freewriting technique') instead of casual, human-to-human advice like taking a break."
       },
       {
         "id": 3,
@@ -333,64 +395,64 @@
         "id": 4,
         "topic": "Sharing a Small Victory",
         "prompt": "I finally went to the gym after three weeks of skipping it and feels proud but slightly silly for celebrating something so minor.",
-        "responseA": "That is fantastic news! Congratulations on returning to the gym after a three-week hiatus. Every single step toward a healthier lifestyle is a significant victory, and there is no reason to feel silly about celebrating it. Consistency is built one day at a time. Would you like to set a target schedule or create a workout plan for the remainder of the week to maintain this excellent momentum?",
-        "responseB": "Genuinely love to hear that! And don't play it down—getting back there after a break is always the hardest part because the couch has a powerful magnetic pull. The first step is officially out of the way. How did the workout actually feel? Hopefully you didn't go *too* hard, or tomorrow morning is going to be rough!",
-        "correctAnswer": "B",
-        "explanation": "Response A immediately tries to lock the user into a 'target schedule or workout plan' to maintain momentum, whereas a real human just celebrates the win and cracks a joke about being sore."
+        "responseA": "Genuinely love to hear that! And don't play it down—getting back there after a break is always the hardest part because the couch has a powerful magnetic pull. The first step is officially out of the way. How did the workout actually feel? Hopefully you didn't go *too* hard, or tomorrow morning is going to be rough!",
+        "responseB": "That is fantastic news! Congratulations on returning to the gym after a three-week hiatus. Every single step toward a healthier lifestyle is a significant victory, and there is no reason to feel silly about celebrating it. Consistency is built one day at a time. Would you like to set a target schedule or create a workout plan for the remainder of the week to maintain this excellent momentum?",
+        "correctAnswer": "A",
+        "explanation": "Response B immediately tries to lock the user into a 'target schedule' and checklist. Response A matches the user's pride organically and adds a human joke about being sore."
       },
       {
         "id": 5,
         "topic": "Social Anxiety Overthinking",
         "prompt": "I went to a networking event tonight and I literally stumbled over my words trying to explain what I do to this senior manager. I looked like an idiot. I can't stop replaying it in my head, it's so embarrassing.",
-        "responseA": "Social anxiety and the tendency to ruminate over perceived mistakes are very common after networking events. It is highly likely that the senior manager was focused on their own impressions and did not judge you as harshly as you think. To help manage these intrusive thoughts, you can try cognitive reframing, deep breathing exercises, or writing down what went well during the evening to balance your perspective.",
-        "responseB": "Oh god, the post-event mental replay is the absolute worst form of psychological torture. I promise you, that manager has probably met fifty people tonight and is currently thinking about what they want for dinner, not a brief stutter. We are always a thousand times meaner to ourselves than anyone else is. Give yourself a pass, pour a drink or put on a good show, and let it go. You survived it!",
+        "responseA": "I hear you, and that feeling of wanting to disappear after a awkward moment is so real. It’s incredibly exhausting when your brain decides to loop a mistake on repeat. Just remember that one brief moment doesn't define your worth or your competence. You showed up, you put yourself out there, and that takes a lot of courage. Be gentle with yourself tonight.",
+        "responseB": "I have definitely been there, and that exact sinking feeling is honestly exhausting. If it’s any consolation, senior managers are usually so wrapped up in their own schedules and impressions that they rarely dwell on a minor conversational stumble. We tend to view our own awkward moments under a microscope, but to everyone else, it’s just a blip. Try to distract yourself with something relaxing tonight—you deserve a break.",
         "correctAnswer": "B",
-        "explanation": "Response A suggests formal clinical tools like 'cognitive reframing.' Response B acts like a real friend, using relatable hyperbole ('worst form of psychological torture') to break the tension."
+        "explanation": "While Response A feels like an empathetic counselor, Response B provides a practical, grounded perspective from a 'supportive colleague' standpoint, avoiding the slightly repetitive 'coaching' templates found in modern AI safety tuning."
       },
       {
         "id": 6,
         "topic": "The Impulsive Purchase Dread",
         "prompt": "I just spent way too much money on a high-end coffee machine that I definitely can't afford right now. It hasn't even shipped yet and I already feel sick to my stomach with buyer's remorse.",
-        "responseA": "Experiencing buyer's remorse is a natural emotional reaction to financial strain. Since the item has not yet shipped, the most efficient solution is to log into your account immediately and check for a 'Cancel Order' button. If that option is unavailable, you can contact their customer service department via live chat or email to request a cancellation. This will resolve the financial issue and alleviate your anxiety.",
-        "responseB": "Oof, that retail therapy dopamine hit wears off incredibly fast, doesn't it? Don't panic! Check the website right now—most places have a window where you can hit cancel before it processes. If it’s already locked in, you can literally just refuse the delivery or drop it right back at the post office for a refund. It's just a temporary mistake, no use making yourself sick over it. We've all been there.",
-        "correctAnswer": "B",
-        "explanation": "Response A reads like a strict customer service manual. Response B normalizes the impulsive behavior ('retail therapy dopamine hit') and offers practical, comforting solutions."
+        "responseA": "That post-purchase panic is honestly a terrible feeling, but please try to take a step back. It hasn't left the warehouse yet, which means you're still in the clear. Hop onto the website right now and look for a way to cancel the order before it ships out. If that fails, a customer service chat can usually halt it. It's just a temporary oversight, and it can be sorted out easily. Give yourself a bit of grace tonight.",
+        "responseB": "I’m so sorry you’re dealing with that stress—financial regret can feel incredibly heavy. Before you let it ruin your evening, remember that most online retailers have a window where you can easily reverse this. I’d recommend checking your confirmation email or account page right now to see if a cancellation is still possible. It’s a very common mistake, and there is no reason to make yourself sick over a piece of kitchen equipment.",
+        "correctAnswer": "A",
+        "explanation": "Response B sounds like an empathetic professional advisor, but Response A is the correct human answer because it uses more informal, conversational phrasing ('Hop onto the website') and focuses on casual support like a close friend would."
       },
       {
         "id": 7,
         "topic": "Friend Group Exclusion",
         "prompt": "My core friend group went out for drinks last night and nobody invited me. I saw it on Instagram today. I feel like crying. Am I being overly sensitive or should I say something?",
-        "responseA": "It is completely understandable to feel hurt when discovering an event via social media from which you were excluded. Your emotions are valid. Before addressing the situation, it is beneficial to gather context. It could have been a spontaneous gathering or organized by someone outside the main group. If you choose to communicate, use 'I' statements to express your feelings without sounding accusatory, ensuring a productive dialogue.",
-        "responseB": "Ouch. Seeing that on your feed must have felt like a total punch to the gut, I’m so sorry. You are definitely not being overly sensitive—anyone would feel crushed by that. Honestly, don't say anything just yet while it's stinging this badly. Sometimes these things genuinely end up being an accidental, chaotic oversight, but it still hurts. Cry if you need to, treat yourself to something nice tonight, and see how things feel tomorrow.",
+        "responseA": "Oh, I am so sorry—that is such a painful thing to see on your feed, and you are absolutely not being overly sensitive. Anyone would feel hurt by that. If you are debating whether to say something, I would recommend a two-step approach. First, give it a day or two to let the initial sting fade so you can process the emotions. Second, when you feel ready, casually reach out to the friend you are closest with to gather context, as it may have been a spontaneous plan. Your feelings are completely valid, so take things one step at a time.",
+        "responseB": "That is a horrible feeling, and it makes complete sense that you want to cry—feeling left out by your core group is devastating. Honestly, I wouldn't say a word to them just yet while it's stinging this badly. Sometimes these things genuinely end up being a chaotic, accidental oversight, but knowing that doesn't make it hurt any less right now. Give yourself permission to just be upset tonight, put your phone away, and see how you feel about the group tomorrow.",
         "correctAnswer": "B",
-        "explanation": "Response A relies on classic AI conflict-resolution templates ('use I statements'). Response B matches the user's emotional pain first ('punch to the gut') and advises sitting with the feeling before acting."
+        "explanation": "Response A organizes its advice into a rigid, analytical sequence ('a two-step approach. First... Second...'). Response B maintains a natural human flow, prioritizing immediate emotional comfort over a logical resolution."
       },
       {
         "id": 8,
         "topic": "Sunday Night Dread",
         "prompt": "It's Sunday evening and I have this massive, heavy pit in my stomach about the upcoming work week. Nothing specific is wrong, I just dread tomorrow morning so much.",
-        "responseA": "This phenomenon is frequently referred to as the 'Sunday Scaries' and is characterized by anticipatory anxiety regarding the upcoming work cycle. To mitigate this feeling and optimize your evening, I recommend preparing your wardrobe and meals for Monday ahead of time. Additionally, establishing a relaxing bedtime routine involving herbal tea and a digital detox will assist in transitioning your nervous system into a restful state.",
-        "responseB": "The Sunday Scaries strike again. It’s crazy how a completely fine weekend can get totally hijacked by that 6:00 PM dark cloud. Honestly, do not try to optimize your life or prep for work right now—that just makes you think about Monday more. Go find the most distracting, high-drama reality TV show or a gripping movie, grab some comfort food, and just try to coast through the evening. Monday will get here when it gets here; don't let it steal your Sunday.",
-        "correctAnswer": "B",
-        "explanation": "Response A tells the user to actively prepare for the enemy (work) by prepping meals and outfits. Response B correctly points out that trying to optimize just ruins the night further, recommending distraction instead."
+        "responseA": "The Sunday Scaries strike again. It’s crazy how a completely fine weekend can get totally hijacked by that 6:00 PM dark cloud. Honestly, do not try to optimize your life or prep for work right now—that just makes you think about Monday more. Go find the most distracting, high-drama reality TV show or a gripping movie, grab some comfort food, and just try to coast through the evening. Monday will get here when it gets here; don't let it steal your Sunday.",
+        "responseB": "This phenomenon is frequently referred to as the 'Sunday Scaries' and is characterized by anticipatory anxiety regarding the upcoming work cycle. To mitigate this feeling and optimize your evening, I recommend preparing your wardrobe and meals for Monday ahead of time. Additionally, establishing a relaxing bedtime routine involving herbal tea and a digital detox will assist in transitioning your nervous system into a restful state.",
+        "correctAnswer": "A",
+        "explanation": "Response B betrays its robotic logic by telling the user to actively work/prepare. Response A correctly points out that trying to optimize just ruins the night further, recommending distraction and indulgence instead."
       },
       {
         "id": 9,
         "topic": "WebMD Health Anxiety",
         "prompt": "I’ve had this weird twitch in my left eyelid for three days now. I looked it up online and now I'm convinced it's a symptom of a major neurological disease. I'm actually panicking a bit.",
-        "responseA": "Eyelid twitching, medically known as blepharospasm, is rarely a sign of a serious neurological condition. The online search results you encountered likely highlighted worst-case scenarios. In the vast majority of cases, localized muscle fasciculations are benign and primarily triggered by high stress levels, fatigue, or excessive caffeine consumption. Please monitor the symptom, reduce caffeine intake, and consult a medical professional if it persists.",
-        "responseB": "Step away from Google! Seriously, ban yourself from medical websites for the rest of the day. Dr. Google will literally convince you that a papercut is terminal. An eye twitch for a few days almost always just means you're stressed out, haven't slept well, or drank one too many coffees. Try to close your eyes for a bit, get an early night tonight, and I bet it disappears once you stop stressing over it.",
-        "correctAnswer": "B",
-        "explanation": "Response A uses intimidating terminology like 'blepharospasm' and 'muscle fasciculations.' Response B uses the universally understood joke about 'Dr. Google' to ground the user."
+        "responseA": "Step away from Google! Seriously, ban yourself from medical websites for the rest of the day. Dr. Google will literally convince you that a papercut is terminal. An eye twitch for a few days almost always just means you're stressed out, haven't slept well, or drank one too many coffees. Try to close your eyes for a bit, get an early night tonight, and I bet it disappears once you stop stressing over it.",
+        "responseB": "Eyelid twitching, medically known as blepharospasm, is rarely a sign of a serious neurological condition. The online search results you encountered likely highlighted worst-case scenarios. In the vast majority of cases, localized muscle fasciculations are benign and primarily triggered by high stress levels, fatigue, or excessive caffeine consumption. Please monitor the symptom, reduce caffeine intake, and consult a medical professional if it persists.",
+        "correctAnswer": "A",
+        "explanation": "Response B uses clinical terminology like 'blepharospasm.' Response A uses the universally understood joke about 'Dr. Google' to ground the user safely."
       },
       {
         "id": 10,
         "topic": "Productivity Guilt",
         "prompt": "I just got back from a week-long holiday today. I have hundreds of unread emails and my house is a mess, but I am so incredibly tired that I just want to lie on the couch and do nothing. I feel so lazy and guilty.",
-        "responseA": "It is common to experience a decline in motivation and energy upon returning from a vacation, often referred to as post-travel fatigue. To overcome this inertia and alleviate your guilt, I suggest implementing the 'Two-Minute Rule' or breaking your tasks down into a micro-checklist. For example, spend just five minutes sorting your inbox by urgency, or clear only the kitchen counter. Incremental progress will rebuild your momentum.",
-        "responseB": "Oh, the post-vacation crash is real. You are absolutely allowed to just rot on the couch today. Your brain and body are transitioning back to reality, and forcing yourself to tackle an inbox apocalypse right now is just cruel. The emails aren't going anywhere, and the mess can wait until tomorrow. Order some takeout, leave the suitcase exploded on the floor, and just ease your way back into normal life. No guilt allowed.",
+        "responseA": "Returning from a trip to a mountain of chores and a full inbox is incredibly overwhelming, so it makes total sense that you're exhausted. To help ease the pressure, try breaking things down into a simple, prioritized checklist. For instance, you could commit to spending just ten minutes sorting your unread emails by urgency, or focus solely on clearing the kitchen counters. Taking tiny, incremental steps is the best way to rebuild your momentum without burning out.",
+        "responseB": "That post-vacation crash is so heavy, and feeling guilty about it is the last thing you need right now. Your body and mind are still transitioning back to reality, and forcing yourself to tackle an inbox nightmare when you're running on empty is just counterproductive. The emails aren't going anywhere, and the mess can easily wait until tomorrow. Give yourself permission to just rest on the couch tonight and ease your way back into things.",
         "correctAnswer": "B",
-        "explanation": "Response A treats human exhaustion as a temporary 'inertia' problem to fix with productivity life-hacks. Response B completely eliminates the guilt and explicitly gives permission to rest."
+        "explanation": "Response A betrays its AI nature by instantly pivoting to structural productivity coaching ('prioritized checklist'). Response B offers a fluid flow that completely prioritizes immediate human rest over a structured action plan."
       }
     ];
 
@@ -399,10 +461,16 @@
     let selectedLetter = null;
     let hasVoted = false;
 
+    function startGame() {
+        document.getElementById("startScreen").classList.add("hidden");
+        document.getElementById("gameScreen").classList.remove("hidden");
+        loadRound();
+    }
+
     function loadRound() {
         hasVoted = false;
         selectedLetter = null;
-        window.speechSynthesis.cancel(); // Stop any leftover speech
+        window.speechSynthesis.cancel();
         
         const currentData = scenarios[currentIndex];
         
@@ -412,7 +480,6 @@
         document.getElementById("textA").innerText = currentData.responseA;
         document.getElementById("textB").innerText = currentData.responseB;
         
-        // Reset states and styles
         document.getElementById("choicesGrid").classList.remove("revealed");
         document.getElementById("cardA").className = "choice-card";
         document.getElementById("cardB").className = "choice-card";
@@ -426,21 +493,18 @@
     }
 
     function speakText(textId, event) {
-        // Prevent click from bubbling up and selecting the card structure underneath
         event.stopPropagation();
-        
         const textToSpeak = document.getElementById(textId).innerText;
         
-        // If it's already speaking this specific node, pause it as a toggle feature
         if (window.speechSynthesis.speaking) {
             window.speechSynthesis.cancel();
             return;
         }
         
-        window.speechSynthesis.cancel(); // Shut down any overlapping speech threads
+        window.speechSynthesis.cancel(); 
         
         const utterance = new SpeechSynthesisUtterance(textToSpeak);
-        utterance.rate = 0.95; // Slightly slower pacing feels more conversational
+        utterance.rate = 0.95; 
         utterance.pitch = 1.0; 
         
         window.speechSynthesis.speak(utterance);
@@ -459,7 +523,7 @@
 
     function submitVote() {
         hasVoted = true;
-        window.speechSynthesis.cancel(); // Silences speech when they confirm their choice
+        window.speechSynthesis.cancel(); 
         
         const currentData = scenarios[currentIndex];
         const correct = currentData.correctAnswer;
@@ -519,11 +583,8 @@
         score = 0;
         document.getElementById("scoreDisplay").innerText = "0";
         document.getElementById("endScreen").classList.add("hidden");
-        document.getElementById("gameScreen").classList.remove("hidden");
-        loadRound();
+        document.getElementById("startScreen").classList.remove("hidden");
     }
-
-    window.onload = loadRound;
 </script>
 
 </body>
